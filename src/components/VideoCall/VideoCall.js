@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
-const SOCKET_SERVER_URL = "http://localhost:5000"; // তোমার signaling server url
+const SOCKET_SERVER_URL = "https://video-call-react-backand.onrender.com"; // তোমার signaling server url
 
 const iceServers = {
   iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
