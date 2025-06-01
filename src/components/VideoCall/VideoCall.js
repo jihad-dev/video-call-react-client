@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 const SOCKET_SERVER_URL = "https://video-call-react-backand.onrender.com";
 const iceServers = {
-  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+  iceServers: [{ urls: "stun4.l.google.com:19302" }],
 };
 
 const ringtoneUrl = "/ringtone.mp3"; // Make sure this file is in your public/ folder
