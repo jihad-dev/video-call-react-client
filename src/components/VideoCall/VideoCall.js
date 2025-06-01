@@ -2,8 +2,24 @@ import React, { useRef, useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
 const SOCKET_SERVER_URL = "https://video-call-react-backand.onrender.com";
+
 const iceServers = {
-  iceServers: [{ urls: "stun4.l.google.com:19302" }],
+  iceServers: [
+    { urls: "stun:bn-turn1.xirsys.com" },
+    {
+      username:
+        "X-9AaYnznszNaELY8gw2MAx1HUHb9NJ29cQVSO-VayE3eZh9V9d8wn-TXXsKiuhZAAAAAGg7zy5jb2RlV2l0aEppaGFkdWw=",
+      credential: "40a9a008-3e9c-11f0-bbaa-0242ac140004",
+      urls: [
+        "turn:bn-turn1.xirsys.com:80?transport=udp",
+        "turn:bn-turn1.xirsys.com:3478?transport=udp",
+        "turn:bn-turn1.xirsys.com:80?transport=tcp",
+        "turn:bn-turn1.xirsys.com:3478?transport=tcp",
+        "turns:bn-turn1.xirsys.com:443?transport=tcp",
+        "turns:bn-turn1.xirsys.com:5349?transport=tcp",
+      ],
+    },
+  ],
 };
 
 const ringtoneUrl = "/ringtone.mp3"; // Make sure this file is in your public/ folder
@@ -55,10 +71,12 @@ const VideoCall = () => {
       setRemoteOffer(offer);
       setCallIncoming(true);
 
-      // Try to play ringtone (may be blocked by browser autoplay policy)
       if (ringtoneAudio.current) {
         ringtoneAudio.current.play().catch((e) => {
-          console.log("Autoplay prevented, ringtone will play after user interaction.", e);
+          console.log(
+            "Autoplay prevented, ringtone will play after user interaction.",
+            e
+          );
         });
       }
     });
@@ -141,7 +159,6 @@ const VideoCall = () => {
 
   const acceptCall = async () => {
     try {
-      // Stop ringtone on user interaction
       if (ringtoneAudio.current) {
         ringtoneAudio.current.pause();
         ringtoneAudio.current.currentTime = 0;
@@ -308,29 +325,36 @@ const VideoCall = () => {
               {videoEnabled ? "🎥 Video Off" : "📷 Video On"}
             </button>
             <button onClick={toggleScreenShare}>
-              {screenSharing ? "🛑 Screen Share Stop" : "📺 Screen Share Start"}
+              {screenSharing ? "🛑 Stop Screen Share" : "📺 Screen Share"}
             </button>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "center", gap: 20 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 20,
+              flexWrap: "wrap",
+            }}
+          >
             <div>
-              <p>Local Video</p>
+              <h4>তোমার ভিডিও</h4>
               <video
                 ref={localVideoRef}
                 autoPlay
-                muted
                 playsInline
-                style={{ width: 300, border: "1px solid black" }}
+                muted
+                style={{ width: 320, height: 240, backgroundColor: "#000" }}
               />
             </div>
 
             <div>
-              <p>Remote Video</p>
+              <h4>অন্যের ভিডিও</h4>
               <video
                 ref={remoteVideoRef}
                 autoPlay
                 playsInline
-                style={{ width: 300, border: "1px solid black" }}
+                style={{ width: 320, height: 240, backgroundColor: "#000" }}
               />
             </div>
           </div>
