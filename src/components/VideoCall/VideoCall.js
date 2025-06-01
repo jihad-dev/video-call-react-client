@@ -354,6 +354,7 @@ const VideoCall = () => {
                 ref={remoteVideoRef}
                 autoPlay
                 playsInline
+                muted
                 style={{ width: 320, height: 240, backgroundColor: "#000" }}
               />
             </div>
