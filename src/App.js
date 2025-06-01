@@ -1,11 +1,10 @@
 
 import './App.css';
-import VideoCall from './components/VideoCall/VideoCall';
-
+import VideoCallApp from './components/VideoJistimeet';
 function App() {
   return (
     <div>
-      <VideoCall />
+       <VideoCallApp/>
     </div>
   );
 }
